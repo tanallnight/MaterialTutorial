@@ -1,0 +1,58 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alexandrepiveteau.library.tutorial.TutorialFragment">
+
+    <TextView
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_margin="32dp"
+        android:layout_marginBottom="108dp"
+        android:paddingBottom="88dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:textColor="#ffffff"
+        android:id="@+id/tutorial_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_above="@id/tutorial_description"
+        android:textColor="#ffffff"
+        android:id="@+id/tutorial_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_above="@id/tutorial_name"
+        android:layout_margin="24dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerInside"
+        android:id="@+id/tutorial_image_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:layout_above="@id/tutorial_name"
+        android:layout_margin="24dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerInside"
+        android:id="@+id/tutorial_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:layout_above="@id/tutorial_name"
+        android:layout_margin="24dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerInside"
+        android:id="@+id/tutorial_image_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>
