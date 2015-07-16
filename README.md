@@ -2,6 +2,8 @@
 An Android library that provides a simple Material-Designed tutorial.
 This library is licensed under the Apache License. Check out the LICENSE.txt file for more information.
 
+Video example : [YouTube link](https://youtu.be/WEjwE59k1oY "MaterialTutorial sample on YouTube")
+
 # Features
 - Follows the latest Material Design guidelines from Google.
 - A very efficient to create a tutorial. You just need to extend one class!
