@@ -50,6 +50,8 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
 
         mSelectedPaint.setColor(selectedColor);
         mUnselectedPaint.setColor(unselectedColor);
+        mSelectedPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        mUnselectedPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
 
         mTotalPages = 2;
     }
