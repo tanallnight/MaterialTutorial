@@ -4,25 +4,18 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.alexandrepiveteau.library.tutorial.widgets.PageIndicator;
 
@@ -32,10 +25,10 @@ import java.util.List;
 
 public abstract class TutorialActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, ViewPager.OnPageChangeListener {
 
-    public abstract String getDoneText();
+    @Deprecated public String getDoneText() {return null;};
     public abstract String getIgnoreText();
-    public abstract String getNextText();
-    public abstract String getPreviousText();
+    @Deprecated public String getNextText() {return null;};
+    @Deprecated public String getPreviousText() {return null;};
 
     public abstract int getCount();
     public abstract int getBackgroundColor(int position);
@@ -49,7 +42,6 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
 
     //Views used
     private Button mButtonLeft;
-    private Button mButtonRight;
     private ImageButton mImageButtonLeft;
     private ImageButton mImageButtonRight;
     private PageIndicator mPageIndicator;
@@ -95,7 +87,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1, true);
             }
-        } else if (v.getId() == R.id.tutorial_button_right || v.getId() == R.id.tutorial_button_image_right) {
+        } else if (v.getId() == R.id.tutorial_button_image_right) {
             if(mViewPager.getCurrentItem() == getCount()-1) {
                 finish();
             } else {
@@ -110,7 +102,6 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         setContentView(R.layout.activity_tutorial);
 
         mButtonLeft = (Button) findViewById(R.id.tutorial_button_left);
-        mButtonRight = (Button) findViewById(R.id.tutorial_button_right);
         mImageButtonLeft = (ImageButton) findViewById(R.id.tutorial_button_image_left);
         mImageButtonRight = (ImageButton) findViewById(R.id.tutorial_button_image_right);
         mPageIndicator = (PageIndicator) findViewById(R.id.tutorial_page_indicator);
@@ -118,7 +109,6 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
 
         mButtonLeft.setOnClickListener(this);
-        mButtonRight.setOnClickListener(this);
         mImageButtonLeft.setOnClickListener(this);
         mImageButtonRight.setOnClickListener(this);
         mImageButtonLeft.setOnLongClickListener(this);
@@ -181,70 +171,25 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
 
             animateViewFadeIn(mButtonLeft);
             animateViewFadeOut(mImageButtonLeft);
-
-            animateViewFadeOut(mButtonRight);
-            animateViewFadeIn(mImageButtonRight);
-
         } else if (mViewPager.getCurrentItem() == getCount()-1) {
-            mButtonRight.setText(getDoneText());
-
             animateViewFadeOut(mButtonLeft);
-            animateViewFadeIn(mButtonRight);
             animateViewFadeIn(mImageButtonLeft);
-            animateViewFadeOut(mImageButtonRight);
         } else {
             animateViewFadeOut(mButtonLeft);
-            animateViewFadeOut(mButtonRight);
             animateViewFadeIn(mImageButtonLeft);
-            animateViewFadeIn(mImageButtonRight);
         }
 
-        boolean hadPreviousPageCustomIcon = false;
-        boolean hasCustomIcon = false;
-
-        int previousPageIcon;
-        final int currentPageIcon;
-
-        if(mFragmentList.get(mPreviousPage) instanceof CustomAction) {
-            hadPreviousPageCustomIcon = ((CustomAction)mFragmentList.get(mPreviousPage)).hasCustomAction();
+        if(mViewPager.getCurrentItem() == getCount()-1 && mViewPager.getCurrentItem() != mPreviousPage) {
+            mImageButtonRight.setImageResource(R.drawable.animated_next_to_ok);
+            AnimationDrawable animationDrawable = (AnimationDrawable) mImageButtonRight.getDrawable();
+            animationDrawable.start();
+        } else if (mViewPager.getCurrentItem() != mPreviousPage && mPreviousPage == getCount()-1) {
+            mImageButtonRight.setImageResource(R.drawable.animated_ok_to_next);
+            AnimationDrawable animationDrawable = (AnimationDrawable) mImageButtonRight.getDrawable();
+            animationDrawable.start();
         }
 
-        if(hadPreviousPageCustomIcon) {
-            previousPageIcon = ((CustomAction)mFragmentList.get(mPreviousPage)).getCustomActionIcon();
-        } else {
-            previousPageIcon = R.drawable.ic_action_tutorial_previous;
-        }
-
-        if(mFragmentList.get(position) instanceof CustomAction) {
-            hasCustomIcon = ((CustomAction)mFragmentList.get(position)).hasCustomAction();
-        }
-
-        if(hasCustomIcon) {
-            currentPageIcon = ((CustomAction)mFragmentList.get(position)).getCustomActionIcon();
-        } else {
-            currentPageIcon = R.drawable.ic_action_tutorial_previous;
-        }
-
-        if(currentPageIcon != previousPageIcon) {
-            mImageButtonLeft.animate()
-                    .alpha(0)
-                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            super.onAnimationEnd(animation);
-                            mImageButtonLeft.setImageResource(currentPageIcon);
-                            mImageButtonLeft.animate()
-                                    .alpha(1f)
-                                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
-                                    .setListener(null)//We clear all listeners
-                                    .start();
-                        }
-                    })
-                    .start();
-        }
-
-        mPreviousPage = position;
+        handleCustomIcons(position);
     }
 
     private void animateViewFadeIn(final View view) {
@@ -273,6 +218,55 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                     }
                 })
                 .start();
+    }
+
+    private void handleCustomIcons(int position) {
+        boolean hadPreviousPageCustomIcon = false;
+        boolean hasCustomIcon = false;
+
+        int previousPageIcon;
+        final int currentPageIcon;
+
+        if(mFragmentList.get(mPreviousPage) instanceof CustomAction) {
+            hadPreviousPageCustomIcon = ((CustomAction)mFragmentList.get(mPreviousPage)).hasCustomAction();
+        }
+
+        if(hadPreviousPageCustomIcon) {
+            previousPageIcon = ((CustomAction)mFragmentList.get(mPreviousPage)).getCustomActionIcon();
+        } else {
+            previousPageIcon = R.drawable.static_previous;
+        }
+
+        if(mFragmentList.get(position) instanceof CustomAction) {
+            hasCustomIcon = ((CustomAction)mFragmentList.get(position)).hasCustomAction();
+        }
+
+        if(hasCustomIcon) {
+            currentPageIcon = ((CustomAction)mFragmentList.get(position)).getCustomActionIcon();
+        } else {
+            currentPageIcon = R.drawable.static_previous;
+        }
+
+        if(currentPageIcon != previousPageIcon) {
+            mImageButtonLeft.animate()
+                    .alpha(0)
+                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            super.onAnimationEnd(animation);
+                            mImageButtonLeft.setImageResource(currentPageIcon);
+                            mImageButtonLeft.animate()
+                                    .alpha(1f)
+                                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                                    .setListener(null)//We clear all listeners
+                                    .start();
+                        }
+                    })
+                    .start();
+        }
+
+        mPreviousPage = position;
     }
 
     @Override

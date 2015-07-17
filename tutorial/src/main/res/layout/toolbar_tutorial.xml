@@ -26,7 +26,7 @@
         android:layout_marginLeft="48dp"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_action_tutorial_previous"/>
+        android:src="@drawable/static_previous"/>
 
     <com.alexandrepiveteau.library.tutorial.widgets.PageIndicator
         android:id="@+id/tutorial_page_indicator"
@@ -45,18 +45,6 @@
         android:layout_marginRight="48dp"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@drawable/ic_action_tutorial_next"/>
-
-    <Button
-        android:visibility="gone"
-        android:id="@+id/tutorial_button_right"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_height="match_parent"
-        android:layout_width="wrap_content"
-        android:text="NEXT"
-        android:textColor="#ffffff" />
+        android:src="@drawable/animated_next_to_ok"/>
 
 </RelativeLayout>
