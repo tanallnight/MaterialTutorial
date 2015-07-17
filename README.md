@@ -23,7 +23,7 @@ repositories {
 and the following to your module's build.gradle :
 ```
 dependencies {
-	        compile 'com.github.cadialex:MaterialTutorial:1.0.0'
+	        compile 'com.github.cadialex:MaterialTutorial:1.0.1'
 	}
 ```
 
