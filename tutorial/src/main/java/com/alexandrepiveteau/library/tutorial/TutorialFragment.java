@@ -33,8 +33,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
         private String mTitle;
         private String mDescription;
 
-        private int mCustomActionIcon;
-        private String mCustomActionUri;
+        private CustomAction mCustomAction;
 
         public Builder() {
             mImageResource = NO_IMAGE;
@@ -45,7 +44,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
             mIsImageResourceBackgroundAnimated = false;
             mIsImageResourceForegroundAnimated = false;
 
-            mCustomActionIcon = NO_IMAGE;
+            mCustomAction = new CustomAction.Builder(Uri.parse("")).build();
         }
 
         public Builder setImageResource(int imageResource) {
@@ -94,14 +93,13 @@ public class TutorialFragment extends Fragment implements CustomAction{
             return this;
         }
 
-        public Builder setCustomAction(int actionIcon, Uri actionUri) {
-            mCustomActionIcon = actionIcon;
-            mCustomActionUri = actionUri.toString();
+        public Builder setCustomAction(CustomAction customAction) {
+            mCustomAction = customAction;
             return this;
         }
 
         public TutorialFragment build() {
-            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomActionIcon, mCustomActionUri);
+            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionUri().toString(), mCustomAction.getCustomActionTitle());
         }
     }
 
@@ -118,9 +116,10 @@ public class TutorialFragment extends Fragment implements CustomAction{
     private static final String ARGUMENTS_TUTORIAL_DESCRIPTION = "ARGUMENTS_TUTORIAL_NAME_DESCRIPTION";
 
     private static final String ARGUMENTS_CUSTOM_ACTION_ICON = "ARGUMENTS_CUSTOM_ACTION_ICON";
+    private static final String ARGUMENTS_CUSTOM_ACTION_TITLE = "ARGUMENTS_CUSTOM_ACTIION_TITLE";
     private static final String ARGUMENTS_CUSTOM_ACTION_URI = "ARGUMENTS_CUSTOM_ACTION_URI";
 
-    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, String customActionUri) {
+    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, String customActionUri, String customActionTitle) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE, imageResource);
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE_BACKGROUND, imageResourceBackground);
@@ -132,6 +131,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
         bundle.putBoolean(ARGUMENTS_HAS_ANIMATED_IMAGE_FOREGROUND, hasAnimatedImageResourceForeground);
         bundle.putInt(ARGUMENTS_CUSTOM_ACTION_ICON, customActionIcon);
         bundle.putString(ARGUMENTS_CUSTOM_ACTION_URI, customActionUri);
+        bundle.putString(ARGUMENTS_CUSTOM_ACTION_TITLE, customActionTitle);
 
         TutorialFragment tutorialFragment = new TutorialFragment();
         tutorialFragment.setArguments(bundle);
@@ -168,6 +168,10 @@ public class TutorialFragment extends Fragment implements CustomAction{
     private ImageView mTutorialImageImageViewBackground;
     private ImageView mTutorialImageImageViewForeground;
 
+    /*
+     * Implemented methods for the CustomAction
+     */
+
     @Override
     public Uri getCustomActionUri() {
         return Uri.parse(getArguments().getString(ARGUMENTS_CUSTOM_ACTION_URI));
@@ -179,7 +183,17 @@ public class TutorialFragment extends Fragment implements CustomAction{
     }
 
     @Override
-    public boolean hasCustomAction() {
+    public String getCustomActionTitle() {
+        return getArguments().getString(ARGUMENTS_CUSTOM_ACTION_TITLE);
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !getArguments().getString(ARGUMENTS_CUSTOM_ACTION_URI).equals("");
+    }
+
+    @Override
+    public boolean hasCustomIcon() {
         return getArguments().getInt(ARGUMENTS_CUSTOM_ACTION_ICON) != NO_IMAGE;
     }
 

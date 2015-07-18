@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -72,7 +73,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
             boolean hasCustomAction = false;
 
             if(mFragmentList.get(mViewPager.getCurrentItem()) instanceof CustomAction) {
-                if(((CustomAction)mFragmentList.get(mViewPager.getCurrentItem())).hasCustomAction()) {
+                if(((CustomAction)mFragmentList.get(mViewPager.getCurrentItem())).isEnabled()) {
                     hasCustomAction = true;
                 }
             }
@@ -220,6 +221,83 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                 .start();
     }
 
+    /**private void handleCustomIcons2(final int position) {
+        boolean hadPreviousCustomAction = false;
+        boolean hasCustomAction = false;
+
+        if(mFragmentList.get(mPreviousPage) instanceof CustomAction) {
+            hadPreviousCustomAction = ((CustomAction)mFragmentList.get(mPreviousPage)).isEnabled();
+        }
+
+        if(mFragmentList.get(position) instanceof CustomAction) {
+            hasCustomAction = ((CustomAction)mFragmentList.get(position)).isEnabled();
+        }
+
+        if(!hasCustomAction && hadPreviousCustomAction) {
+            animateViewFadeOut(mButtonLeft);
+            animateViewFadeOut(mImageButtonLeft);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                            animateViewFadeIn(mImageButtonLeft);
+                        }
+                    });
+                }
+            }, android.R.integer.config_shortAnimTime);
+        } else if (hasCustomAction && hadPreviousCustomAction && !CustomAction.Utils.areCustomActionsDrawingEqual((CustomAction)mFragmentList.get(mPreviousPage), (CustomAction)mFragmentList.get(position))) {
+            animateViewFadeOut(mButtonLeft);
+            animateViewFadeOut(mImageButtonLeft);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            CustomAction customAction = (CustomAction)mFragmentList.get(position);
+                            if(customAction.hasCustomIcon()) {
+                                mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                                animateViewFadeIn(mImageButtonLeft);
+                            } else {
+                                mButtonLeft.setText(customAction.getCustomActionTitle());
+                                animateViewFadeIn(mButtonLeft);
+                            }
+                        }
+                    });
+                }
+            }, android.R.integer.config_shortAnimTime);
+        } else if (hasCustomAction && !hadPreviousCustomAction) {
+            animateViewFadeOut(mButtonLeft);
+            animateViewFadeOut(mImageButtonLeft);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            CustomAction customAction = (CustomAction) mFragmentList.get(position);
+                            if (customAction.hasCustomIcon()) {
+                                mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                                animateViewFadeIn(mImageButtonLeft);
+                            } else {
+                                mButtonLeft.setText(customAction.getCustomActionTitle());
+                                animateViewFadeIn(mButtonLeft);
+                            }
+                        }
+                    });
+                }
+            }, android.R.integer.config_shortAnimTime);
+        } else {
+            mImageButtonLeft.setImageResource(R.drawable.static_previous);
+            animateViewFadeIn(mImageButtonLeft);
+        }
+
+        mPreviousPage = position;
+    }*/
+
     private void handleCustomIcons(int position) {
         boolean hadPreviousPageCustomIcon = false;
         boolean hasCustomIcon = false;
@@ -228,7 +306,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         final int currentPageIcon;
 
         if(mFragmentList.get(mPreviousPage) instanceof CustomAction) {
-            hadPreviousPageCustomIcon = ((CustomAction)mFragmentList.get(mPreviousPage)).hasCustomAction();
+            hadPreviousPageCustomIcon = ((CustomAction)mFragmentList.get(mPreviousPage)).isEnabled();
         }
 
         if(hadPreviousPageCustomIcon) {
@@ -238,7 +316,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         }
 
         if(mFragmentList.get(position) instanceof CustomAction) {
-            hasCustomIcon = ((CustomAction)mFragmentList.get(position)).hasCustomAction();
+            hasCustomIcon = ((CustomAction)mFragmentList.get(position)).isEnabled();
         }
 
         if(hasCustomIcon) {
