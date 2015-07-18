@@ -170,13 +170,13 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
             mButtonLeft.setText(getIgnoreText());
 
             animateViewFadeIn(mButtonLeft);
-            animateViewFadeOut(mImageButtonLeft);
+            animateViewScaleOut(mImageButtonLeft);
         } else if (mViewPager.getCurrentItem() == getCount()-1) {
             animateViewFadeOut(mButtonLeft);
-            animateViewFadeIn(mImageButtonLeft);
+            animateViewScaleIn(mImageButtonLeft);
         } else {
             animateViewFadeOut(mButtonLeft);
-            animateViewFadeIn(mImageButtonLeft);
+            animateViewScaleIn(mImageButtonLeft);
         }
 
         if(mViewPager.getCurrentItem() == getCount()-1 && mViewPager.getCurrentItem() != mPreviousPage) {
@@ -190,6 +190,36 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         }
 
         handleCustomIcons(position);
+    }
+
+    private void animateViewScaleIn(final View view) {
+        view.animate()
+                .scaleX(1)
+                .scaleY(1)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        view.setVisibility(View.VISIBLE);
+                    }
+                })
+                .start();
+    }
+
+    private void animateViewScaleOut(final View view) {
+        view.animate()
+                .scaleX(0)
+                .scaleY(0)
+                .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        view.setVisibility(View.GONE);
+                    }
+                })
+                .start();
     }
 
     private void animateViewFadeIn(final View view) {
