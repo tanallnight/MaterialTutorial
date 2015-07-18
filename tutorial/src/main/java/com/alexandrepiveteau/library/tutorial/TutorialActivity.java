@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import com.alexandrepiveteau.library.tutorial.widgets.DefaultPageIndicatorEngine;
 import com.alexandrepiveteau.library.tutorial.widgets.PageIndicator;
 
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
     public abstract String getIgnoreText();
     @Deprecated public String getNextText() {return null;};
     @Deprecated public String getPreviousText() {return null;};
+
+    public PageIndicator.Engine getPageIndicatorEngine() {return new DefaultPageIndicatorEngine();};
 
     public abstract int getCount();
     public abstract int getBackgroundColor(int position);
@@ -126,6 +129,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setPageTransformer(false, getPageTransformer());
 
+        mPageIndicator.setEngine(getPageIndicatorEngine());
         mPageIndicator.setViewPager(mViewPager);
 
         //We use this to actualize the Strings

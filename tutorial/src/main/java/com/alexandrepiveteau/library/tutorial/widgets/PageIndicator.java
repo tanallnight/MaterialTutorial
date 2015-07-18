@@ -16,14 +16,19 @@ import com.alexandrepiveteau.library.tutorial.utils.ConversionUtils;
  */
 public class PageIndicator extends View implements ViewPager.OnPageChangeListener{
 
+    public static abstract class Engine {
+        public abstract int getMeasuredHeight(int widthMeasuredSpec, int heightMeasuredSpec);
+        public abstract int getMeasuredWidth(int widthMeasuredSpec, int heightMeasuredSpec);
+        public abstract void onInitEngine(PageIndicator indicator, Context context);
+        public abstract void onDrawIndicator(Canvas canvas);
+    }
+
     private int mActualPosition;
-    private ConversionUtils mConversionUtils;
     private float mPositionOffset;
     private int mTotalPages;
     private ViewPager mViewPager;
 
-    private Paint mSelectedPaint;
-    private Paint mUnselectedPaint;
+    private Engine mEngine;
 
     public PageIndicator(Context context) {
         this(context, null);
@@ -36,24 +41,22 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
     public PageIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PageIndicator, 0, 0);
+        mEngine = new DefaultPageIndicatorEngine();
 
-        int selectedColor = typedArray.getColor(R.styleable.PageIndicator_dotsSelectedColor, context.getResources().getColor(R.color.dots_default_selected));
-        int unselectedColor = typedArray.getColor(R.styleable.PageIndicator_dotsUnselectedColor, context.getResources().getColor(R.color.dots_default_unselected));
-
-        typedArray.recycle();
-
-        mSelectedPaint = new Paint();
-        mUnselectedPaint = new Paint();
-
-        mConversionUtils = new ConversionUtils(getContext());
-
-        mSelectedPaint.setColor(selectedColor);
-        mUnselectedPaint.setColor(unselectedColor);
-        mSelectedPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        mUnselectedPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
-
+        mEngine.onInitEngine(this, context);
         mTotalPages = 2;
+    }
+
+    public int getTotalPages() {
+        return mTotalPages;
+    }
+
+    public int getActualPosition() {
+        return mActualPosition;
+    }
+
+    public float getPositionOffset() {
+        return mPositionOffset;
     }
 
     public void notifyNumberPagesChanged() {
@@ -65,53 +68,13 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int width = getWidth();
-        int height = getHeight();
-
-        //We draw the unselected page indicators
-        for(int i = 0; i < mTotalPages; i++) {
-            int radius;
-            if(i == mActualPosition + 1) {
-                radius = mConversionUtils.getPixelsFromDp(4*(1-mPositionOffset));
-            } else if (i == mActualPosition) {
-                radius = mConversionUtils.getPixelsFromDp(4*(mPositionOffset));
-            } else {
-                radius = mConversionUtils.getPixelsFromDp(4);
-            }
-            int x = mConversionUtils.getPixelsFromDp(4) + mConversionUtils.getPixelsFromDp(16*i);
-            canvas.drawCircle(x, height/2, radius, mUnselectedPaint);
-        }
-
-        int firstX;
-        int secondX;
-
-        firstX = mConversionUtils.getPixelsFromDp(4 + mActualPosition*16);
-
-        if(mPositionOffset > .5f) {
-            firstX += mConversionUtils.getPixelsFromDp(16*(mPositionOffset - .5f)*2);
-        }
-
-        secondX = mConversionUtils.getPixelsFromDp(4 + mActualPosition*16);
-
-        if(mPositionOffset < .5f) {
-            secondX += mConversionUtils.getPixelsFromDp(16*mPositionOffset*2);
-        } else {
-            secondX += mConversionUtils.getPixelsFromDp(16);
-        }
-
-        canvas.drawCircle(firstX, mConversionUtils.getPixelsFromDp(4), mConversionUtils.getPixelsFromDp(4), mSelectedPaint);
-        canvas.drawCircle(secondX, mConversionUtils.getPixelsFromDp(4), mConversionUtils.getPixelsFromDp(4), mSelectedPaint);
-        canvas.drawRect(firstX, 0, secondX, mConversionUtils.getPixelsFromDp(8), mSelectedPaint);
+        mEngine.onDrawIndicator(canvas);
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
-        int height = mConversionUtils.getPixelsFromDp(8);
-        int width = mConversionUtils.getPixelsFromDp(8 * (mTotalPages * 2 - 1));
-
-        setMeasuredDimension(width, height);
+        setMeasuredDimension(mEngine.getMeasuredWidth(widthMeasureSpec, heightMeasureSpec), mEngine.getMeasuredHeight(widthMeasureSpec, heightMeasureSpec));
     }
 
     @Override
@@ -131,13 +94,9 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
         //Ignore
     }
 
-    public void setSelectedColor(int color) {
-        mSelectedPaint.setColor(color);
-        invalidate();
-    }
-
-    public void setUnselectedColor(int color) {
-        mUnselectedPaint.setColor(color);
+    public void setEngine(Engine engine) {
+        mEngine = engine;
+        mEngine.onInitEngine(this, getContext());
         invalidate();
     }
 
@@ -146,6 +105,7 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
      * @param viewPager
      */
     public void setViewPager(ViewPager viewPager) {
+        mViewPager = viewPager;
         viewPager.addOnPageChangeListener(this);
         mTotalPages = viewPager.getAdapter().getCount();
         invalidate();
