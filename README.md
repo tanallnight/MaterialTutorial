@@ -6,7 +6,7 @@ Video example : [YouTube link](https://youtu.be/WEjwE59k1oY "MaterialTutorial sa
 
 # Features
 - Follows the latest Material Design guidelines from Google.
-- A very efficient to create a tutorial. You just need to extend one class!
+- A very efficient way to create a tutorial. You just need to extend one class!
 - Possibility for every user-created fragment to implement the CustomAction interface for providing custom actions in your tutorial (via Uris).
 - Powerful built-it Fragment (TutorialFragment) included in the library for easily creating material-styled tutorial slides. The TutorialFragment supports user-defined CustomActions, animated images (AnimatedDrawable) and has 3 different layers for creating a parallax effect in your tutorial!
 - A basic but nice PageIndicator you can use outside of the tutorial.
