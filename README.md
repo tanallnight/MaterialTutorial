@@ -12,18 +12,16 @@ Video example : [YouTube link](https://youtu.be/WEjwE59k1oY "MaterialTutorial sa
 - A basic but nice PageIndicator you can use outside of the tutorial.
 
 # How to install this project
-This project is available using jitpack.io. To use the project on Android Studio, add the following to your project's build.gradle file :
+This project is available on jCentral. To use the project on Android Studio, make sure you have the following in your project's build.gradle file :
 ```
 repositories {
-	    maven {
-	        url "https://jitpack.io"
-	    }
+	    jcenter()
 	}
 ```
-and the following to your module's build.gradle :
+and compile the project in your module's build.gradle :
 ```
 dependencies {
-	        compile 'com.github.cadialex:MaterialTutorial:1.0.1'
+	        compile 'com.alexandrepiveteau:material-tutorial:1.1.0'
 	}
 ```
 
