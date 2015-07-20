@@ -4,50 +4,68 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.alexandrepiveteau.library.tutorial.CustomAction;
 import com.alexandrepiveteau.library.tutorial.TutorialActivity;
 import com.alexandrepiveteau.library.tutorial.TutorialFragment;
-import com.alexandrepiveteau.library.tutorial.widgets.DefaultPageIndicatorEngine;
+import com.alexandrepiveteau.library.tutorial.widgets.LinePageIndicatorEngine;
 import com.alexandrepiveteau.library.tutorial.widgets.PageIndicator;
-import com.alexandrepiveteau.library.tutorial.widgets.SimplePageIndicatorEngine;
-import com.alexandrepiveteau.library.tutorial.widgets.TyzenPageIndicatorEngine;
 
-
+/**
+ * Created by Tanmay Parikh on 7/19/2015.
+ */
 public class MainActivity extends TutorialActivity {
+
+    private static final int[] BACKGROUND_COLORS = {
+            Color.parseColor("#F44336"),
+            Color.parseColor("#e9a83b"),
+            Color.parseColor("#5b9899"),
+            Color.parseColor("#265963"),
+            Color.parseColor("#cbb6c5"),
+            Color.parseColor("#4FC3F7"),
+            Color.parseColor("#3F51B5"),
+            Color.parseColor("#F44336")};
 
     @Override
     public String getIgnoreText() {
-        return "Ignore";
+        return "SKIP";
     }
 
+    /**
+     * Requesting an IndicatorEngine to draw dots
+     * Lib comes with 6 Engines built in:
+     * DefaultPageIndicatorEngine (Material Design)
+     * GoogleNowLauncherIndicatorEngine (Similar to the indicators in Google Now Launcher)
+     * SimplePageIndicatorEngine (Simple dot color change on page change)
+     * TyzenPageIndicatorEngine (Lines that rotate on page select)
+     * RingPageIndicatorEngine (Rings that color up, two animations available)
+     * LinePageIndicatorEngine (Line that stretches like progress or line can be constant size and move around)
+     *
+     * @return PageIndicatorEngine class which draws the indicator dots
+     */
     @Override
     public PageIndicator.Engine getPageIndicatorEngine() {
-        return new TyzenPageIndicatorEngine();
+        return new LinePageIndicatorEngine();
     }
 
     @Override
     public int getCount() {
-        return 7;
+        return BACKGROUND_COLORS.length;
     }
 
     @Override
     public int getBackgroundColor(int position) {
-        return Color.BLUE;
+        return BACKGROUND_COLORS[position];
     }
 
     @Override
     public int getNavigationBarColor(int position) {
-        return Color.BLUE;
+        return BACKGROUND_COLORS[position];
     }
 
     @Override
     public int getStatusBarColor(int position) {
-        return Color.BLUE;
+        return BACKGROUND_COLORS[position];
     }
 
     @Override
@@ -57,34 +75,36 @@ public class MainActivity extends TutorialActivity {
                 return new TutorialFragment.Builder()
                         .setTitle("Title")
                         .setDescription("Desc")
-                        .setImageResource(R.mipmap.ic_launcher)
+                        .setImageResourceBackground(R.drawable.device)
+                        .setImageResourceForeground(R.mipmap.ic_launcher)
                         .setCustomAction(
                                 new CustomAction.Builder(Uri.parse("http://www.google.com"))
                                         .setTitle("Google")
-                                        .setIcon(R.mipmap.ic_launcher)
+                                        .setIcon(R.drawable.ic_open_in_browser)
                                         .build())
                         .build();
             default:
                 return new TutorialFragment.Builder()
                         .setTitle("Title")
                         .setDescription("Desc")
-                        .setImageResource(R.mipmap.ic_launcher)
+                        .setImageResourceBackground(R.drawable.device)
+                        .setImageResourceForeground(R.mipmap.ic_launcher)
                         .build();
         }
     }
 
     @Override
     public boolean isNavigationBarColored() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isStatusBarColored() {
-        return false;
+        return true;
     }
 
     @Override
     public ViewPager.PageTransformer getPageTransformer() {
-        return TutorialFragment.getParallaxPageTransformer();
+        return TutorialFragment.getParallaxPageTransformer(1.25f);
     }
 }
