@@ -1,5 +1,6 @@
 package com.alexandrepiveteau.library.tutorial;
 
+import android.app.PendingIntent;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 
@@ -33,10 +34,10 @@ public interface CustomAction {
 
         private int mIcon;
         private String mTitle;
-        private Uri mUri;
+        private PendingIntent mPendingIntent;
 
-        public Builder(Uri uri) {
-            mUri = uri;
+        public Builder(PendingIntent pendingIntent) {
+            mPendingIntent = pendingIntent;
             mIcon = NO_ICON;
             mTitle = "Custom Action";
         }
@@ -54,8 +55,8 @@ public interface CustomAction {
         public CustomAction build() {
             return new CustomAction() {
                 @Override
-                public Uri getCustomActionUri() {
-                    return mUri;
+                public PendingIntent getCustomActionPendingIntent() {
+                    return mPendingIntent;
                 }
 
                 @Override
@@ -70,7 +71,7 @@ public interface CustomAction {
 
                 @Override
                 public boolean isEnabled() {
-                    return mUri != null;
+                    return mPendingIntent != null;
                 }
 
                 @Override
@@ -81,7 +82,7 @@ public interface CustomAction {
         }
     }
 
-    Uri getCustomActionUri();
+    PendingIntent getCustomActionPendingIntent();
     int getCustomActionIcon();
     String getCustomActionTitle();
     boolean isEnabled();

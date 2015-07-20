@@ -1,5 +1,7 @@
 package com.alexandrepiveteau.wallpaper.example;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
@@ -72,14 +74,18 @@ public class MainActivity extends TutorialActivity {
     public Fragment getTutorialFragmentFor(int position) {
         switch (position) {
             case 3:
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("http://www.github.com/cadialex/MaterialTutorial"));
+                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
                 return new TutorialFragment.Builder()
                         .setTitle("Title")
                         .setDescription("Desc")
                         .setImageResourceBackground(R.drawable.device)
                         .setImageResourceForeground(R.mipmap.ic_launcher)
                         .setCustomAction(
-                                new CustomAction.Builder(Uri.parse("http://www.google.com"))
-                                        .setTitle("Google")
+                                new CustomAction.Builder(pendingIntent)
+                                        .setTitle("GitHu")
                                         .setIcon(R.drawable.ic_open_in_browser)
                                         .build())
                         .build();

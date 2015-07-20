@@ -2,6 +2,7 @@ package com.alexandrepiveteau.library.tutorial;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
@@ -80,11 +81,12 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                 }
             }
             if(hasCustomAction) {
-                Uri uri = ((CustomAction)mFragmentList.get(mViewPager.getCurrentItem())).getCustomActionUri();
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(uri);
-                startActivity(intent);
+                PendingIntent intent = ((CustomAction)mFragmentList.get(mViewPager.getCurrentItem())).getCustomActionPendingIntent();
+                try {
+                    intent.send();
+                } catch (PendingIntent.CanceledException exception) {
+                    exception.printStackTrace();
+                }
             } else if(mViewPager.getCurrentItem() == 0) {
                 finish();
             } else {

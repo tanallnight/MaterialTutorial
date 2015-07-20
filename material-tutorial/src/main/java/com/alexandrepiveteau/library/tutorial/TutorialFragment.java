@@ -1,6 +1,7 @@
 package com.alexandrepiveteau.library.tutorial;
 
 
+import android.app.PendingIntent;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
             mIsImageResourceBackgroundAnimated = false;
             mIsImageResourceForegroundAnimated = false;
 
-            mCustomAction = new CustomAction.Builder(Uri.parse("")).build();
+            mCustomAction = new CustomAction.Builder(null).build();
         }
 
         public Builder setImageResource(int imageResource) {
@@ -99,7 +100,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
         }
 
         public TutorialFragment build() {
-            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionUri().toString(), mCustomAction.getCustomActionTitle());
+            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionPendingIntent(), mCustomAction.getCustomActionTitle());
         }
     }
 
@@ -117,9 +118,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
 
     private static final String ARGUMENTS_CUSTOM_ACTION_ICON = "ARGUMENTS_CUSTOM_ACTION_ICON";
     private static final String ARGUMENTS_CUSTOM_ACTION_TITLE = "ARGUMENTS_CUSTOM_ACTIION_TITLE";
-    private static final String ARGUMENTS_CUSTOM_ACTION_URI = "ARGUMENTS_CUSTOM_ACTION_URI";
+    private static final String ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT = "ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT";
 
-    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, String customActionUri, String customActionTitle) {
+    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, PendingIntent pendingIntent, String customActionTitle) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE, imageResource);
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE_BACKGROUND, imageResourceBackground);
@@ -130,7 +131,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
         bundle.putBoolean(ARGUMENTS_HAS_ANIMATED_IMAGE_BACKGROUND, hasAnimatedImageResourceBackground);
         bundle.putBoolean(ARGUMENTS_HAS_ANIMATED_IMAGE_FOREGROUND, hasAnimatedImageResourceForeground);
         bundle.putInt(ARGUMENTS_CUSTOM_ACTION_ICON, customActionIcon);
-        bundle.putString(ARGUMENTS_CUSTOM_ACTION_URI, customActionUri);
+        bundle.putParcelable(ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT, pendingIntent);
         bundle.putString(ARGUMENTS_CUSTOM_ACTION_TITLE, customActionTitle);
 
         TutorialFragment tutorialFragment = new TutorialFragment();
@@ -173,8 +174,8 @@ public class TutorialFragment extends Fragment implements CustomAction{
      */
 
     @Override
-    public Uri getCustomActionUri() {
-        return Uri.parse(getArguments().getString(ARGUMENTS_CUSTOM_ACTION_URI));
+    public PendingIntent getCustomActionPendingIntent() {
+        return getArguments().getParcelable(ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT);
     }
 
     @Override
@@ -189,7 +190,7 @@ public class TutorialFragment extends Fragment implements CustomAction{
 
     @Override
     public boolean isEnabled() {
-        return !getArguments().getString(ARGUMENTS_CUSTOM_ACTION_URI).equals("");
+        return getArguments().getParcelable(ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT) != null;
     }
 
     @Override
