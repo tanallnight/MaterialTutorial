@@ -30,5 +30,6 @@ A short guide will come soon !
 
 # Apps using the library
 - [Zyden 4.0 (coming out soon...)](https://play.google.com/store/apps/details?id=com.zyden.activity "See on Play Store") (by Flax Studios)
+- [Card Calculator 2.8](https://play.google.com/store/apps/details?id=com.james.calculator "See on Play Store") (by James Fenn)
 
 I would be pleased to know if your app uses this library. Send me an e-mail if that's the case, I'll add you to the list of apps :)
