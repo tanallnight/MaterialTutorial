@@ -74,6 +74,7 @@ public class MainActivity extends TutorialActivity {
     public Fragment getTutorialFragmentFor(int position) {
         switch (position) {
             case 3:
+            case 4:
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("http://www.github.com/cadialex/MaterialTutorial"));

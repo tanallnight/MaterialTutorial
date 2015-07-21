@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.alexandrepiveteau.library.tutorial.widgets.DefaultPageIndicatorEngine;
 import com.alexandrepiveteau.library.tutorial.widgets.PageIndicator;
@@ -256,7 +258,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                 .start();
     }
 
-    /**private void handleCustomIcons2(final int position) {
+     /*private void handleCustomIcons2(final int position) {
         boolean hadPreviousCustomAction = false;
         boolean hasCustomAction = false;
 
@@ -271,63 +273,89 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         if(!hasCustomAction && hadPreviousCustomAction) {
             animateViewFadeOut(mButtonLeft);
             animateViewFadeOut(mImageButtonLeft);
-            new Handler().postDelayed(new Runnable() {
+            new Thread() {
                 @Override
                 public void run() {
+                    try {
+                        sleep(android.R.integer.config_mediumAnimTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(TutorialActivity.this, "0", Toast.LENGTH_SHORT).show();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                            Toast.makeText(TutorialActivity.this, "5", Toast.LENGTH_SHORT).show();
                             animateViewFadeIn(mImageButtonLeft);
                         }
                     });
                 }
-            }, android.R.integer.config_shortAnimTime);
+            }.start();
         } else if (hasCustomAction && hadPreviousCustomAction && !CustomAction.Utils.areCustomActionsDrawingEqual((CustomAction)mFragmentList.get(mPreviousPage), (CustomAction)mFragmentList.get(position))) {
             animateViewFadeOut(mButtonLeft);
             animateViewFadeOut(mImageButtonLeft);
-            new Handler().postDelayed(new Runnable() {
+            new Thread() {
                 @Override
                 public void run() {
+                    try {
+                        sleep(android.R.integer.config_mediumAnimTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(TutorialActivity.this, "0", Toast.LENGTH_SHORT).show();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             CustomAction customAction = (CustomAction)mFragmentList.get(position);
                             if(customAction.hasCustomIcon()) {
-                                mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                                mImageButtonLeft.setImageResource(customAction.getCustomActionIcon());
+                                Toast.makeText(TutorialActivity.this, "3", Toast.LENGTH_SHORT).show();
                                 animateViewFadeIn(mImageButtonLeft);
                             } else {
                                 mButtonLeft.setText(customAction.getCustomActionTitle());
+                                Toast.makeText(TutorialActivity.this, "4", Toast.LENGTH_SHORT).show();
                                 animateViewFadeIn(mButtonLeft);
                             }
                         }
                     });
                 }
-            }, android.R.integer.config_shortAnimTime);
+            }.start();
         } else if (hasCustomAction && !hadPreviousCustomAction) {
             animateViewFadeOut(mButtonLeft);
             animateViewFadeOut(mImageButtonLeft);
-            new Handler().postDelayed(new Runnable() {
+            new Thread() {
                 @Override
                 public void run() {
+                    try {
+                        sleep(android.R.integer.config_mediumAnimTime);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    //Toast.makeText(TutorialActivity.this, "0", Toast.LENGTH_SHORT).show();
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             CustomAction customAction = (CustomAction) mFragmentList.get(position);
                             if (customAction.hasCustomIcon()) {
-                                mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                                mImageButtonLeft.setImageResource(customAction.getCustomActionIcon());
+                                Toast.makeText(TutorialActivity.this, "x", Toast.LENGTH_SHORT).show();
                                 animateViewFadeIn(mImageButtonLeft);
                             } else {
                                 mButtonLeft.setText(customAction.getCustomActionTitle());
+                                Toast.makeText(TutorialActivity.this, "1", Toast.LENGTH_SHORT).show();
                                 animateViewFadeIn(mButtonLeft);
                             }
                         }
                     });
                 }
-            }, android.R.integer.config_shortAnimTime);
+            }.start();
+        } else if (!CustomAction.Utils.areCustomActionsDrawingEqual((CustomAction)mFragmentList.get(mPreviousPage), (CustomAction)mFragmentList.get(position))) {
+            //just ignore
         } else {
-            mImageButtonLeft.setImageResource(R.drawable.static_previous);
-            animateViewFadeIn(mImageButtonLeft);
+                Toast.makeText(TutorialActivity.this, "2", Toast.LENGTH_SHORT).show();
+                mImageButtonLeft.setImageResource(R.drawable.static_previous);
+                animateViewFadeIn(mImageButtonLeft);
         }
 
         mPreviousPage = position;
