@@ -1,6 +1,6 @@
 # MaterialTutorial
 An Android library that provides a simple Material-Designed tutorial.
-This library is licensed under the Apache License. Check out the LICENSE.txt file for more information.
+This library is licensed under the Apache 2.0 License. Check out the LICENSE.txt file for more information.
 
 Video example : [YouTube link](https://youtu.be/WEjwE59k1oY "MaterialTutorial sample on YouTube")
 
