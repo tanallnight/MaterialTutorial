@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<string name="define_materialtutoriallibrary"></string>
+	<!-- Author section -->
+	<string name="library_materialtutoriallibrary_author">Alexandre Piveteau</string>
+	<string name="library_materialtutoriallibrary_authorWebsite">www.github.com/cadialex</string>
+	<!-- Library section -->
+	<string name="library_materialtutoriallibrary_libraryName">MaterialTutorial</string>
+	<string name="library_materialtutoriallibrary_libraryDescription">An Android library that provides a simple Material-Designed tutorial.</string>
+	<string name="library_materialtutoriallibrary_libraryWebsite">https://github.com/cadialex</string>
+	<string name="library_materialtutoriallibrary_libraryVersion">1.1.0</string>
+	<!-- OpenSource section -->
+	<string name="library_materialtutoriallibrary_isOpenSource">true</string>
+	<string name="library_materialtutoriallibrary_repositoryLink">https://github.com/cadialex</string>
+	<!-- ClassPath for autoDetect section -->
+	<string name="library_materialtutoriallibrary_classPath">com.alexandrepiveteau.tutorial</string>
+	<!-- License section -->
+	<string name="library_materialtutoriallibrary_licenseId">apache_2_0</string>
+	<!-- Custom variables section -->
+</resources>
