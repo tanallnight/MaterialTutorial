@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import com.alexandrepiveteau.library.tutorial.CustomAction;
 import com.alexandrepiveteau.library.tutorial.TutorialActivity;
@@ -27,6 +29,12 @@ public class MainActivity extends TutorialActivity {
             Color.parseColor("#4FC3F7"),
             Color.parseColor("#3F51B5"),
             Color.parseColor("#F44336")};
+
+    @Override
+    public void finishTutorial() {
+        Toast.makeText(this, "Tutorial finished", Toast.LENGTH_SHORT).show();
+        super.finishTutorial();
+    }
 
     @Override
     public String getIgnoreText() {
@@ -82,6 +90,8 @@ public class MainActivity extends TutorialActivity {
                 return new TutorialFragment.Builder()
                         .setTitle("Title")
                         .setDescription("Desc")
+                        .setTitleGravity(Gravity.LEFT)
+                        .setDescriptionGravity(Gravity.RIGHT)
                         .setImageResourceBackground(R.drawable.device)
                         .setImageResourceForeground(R.mipmap.ic_launcher)
                         .setCustomAction(

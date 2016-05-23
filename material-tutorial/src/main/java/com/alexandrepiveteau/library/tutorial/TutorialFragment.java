@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
         private String mTitle;
         private String mDescription;
 
+        private int mTitleGravity;
+        private int mDescriptionGravity;
+
         private CustomAction mCustomAction;
 
         public Builder() {
@@ -44,6 +49,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
             mIsImageResourceAnimated = false;
             mIsImageResourceBackgroundAnimated = false;
             mIsImageResourceForegroundAnimated = false;
+
+            mTitleGravity = Gravity.CENTER_VERTICAL;
+            mDescriptionGravity = Gravity.CENTER_VERTICAL;
 
             mCustomAction = new CustomAction.Builder(null).build();
         }
@@ -99,8 +107,18 @@ public class TutorialFragment extends Fragment implements CustomAction{
             return this;
         }
 
+        public Builder setTitleGravity(int titleGravity) {
+            mTitleGravity = titleGravity;
+            return this;
+        }
+
+        public Builder setDescriptionGravity(int descriptionGravity) {
+            mDescriptionGravity = descriptionGravity;
+            return this;
+        }
+
         public TutorialFragment build() {
-            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionPendingIntent(), mCustomAction.getCustomActionTitle());
+            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionPendingIntent(), mCustomAction.getCustomActionTitle(), mTitleGravity, mDescriptionGravity);
         }
     }
 
@@ -115,12 +133,14 @@ public class TutorialFragment extends Fragment implements CustomAction{
     private static final String ARGUMENTS_TUTORIAL_IMAGE = "ARGUMENTS_TUTORIAL_NAME_IMAGE";
     private static final String ARGUMENTS_TUTORIAL_NAME = "ARGUMENTS_TUTORIAL_NAME";
     private static final String ARGUMENTS_TUTORIAL_DESCRIPTION = "ARGUMENTS_TUTORIAL_NAME_DESCRIPTION";
+    private static final String ARGUMENTS_TUTORIAL_NAME_GRAVITY = "ARGUMENTS_TUTORIAL_NAME_GRAVITY";
+    private static final String ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY = "ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY";
 
     private static final String ARGUMENTS_CUSTOM_ACTION_ICON = "ARGUMENTS_CUSTOM_ACTION_ICON";
     private static final String ARGUMENTS_CUSTOM_ACTION_TITLE = "ARGUMENTS_CUSTOM_ACTIION_TITLE";
     private static final String ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT = "ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT";
 
-    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, PendingIntent pendingIntent, String customActionTitle) {
+    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, PendingIntent pendingIntent, String customActionTitle, int titleGravity, int descriptionGravity) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE, imageResource);
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE_BACKGROUND, imageResourceBackground);
@@ -133,6 +153,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
         bundle.putInt(ARGUMENTS_CUSTOM_ACTION_ICON, customActionIcon);
         bundle.putParcelable(ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT, pendingIntent);
         bundle.putString(ARGUMENTS_CUSTOM_ACTION_TITLE, customActionTitle);
+
+        bundle.putInt(ARGUMENTS_TUTORIAL_NAME_GRAVITY, titleGravity);
+        bundle.putInt(ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY, descriptionGravity);
 
         TutorialFragment tutorialFragment = new TutorialFragment();
         tutorialFragment.setArguments(bundle);
@@ -223,6 +246,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
         TextView mTutorialNameTextView = (TextView) rootView.findViewById(R.id.tutorial_name);
         TextView mTutorialDescriptionTextView = (TextView) rootView.findViewById(R.id.tutorial_description);
 
+        mTutorialNameTextView.setGravity(Gravity.CENTER_HORIZONTAL|arguments.getInt(ARGUMENTS_TUTORIAL_NAME_GRAVITY));
+        mTutorialDescriptionTextView.setGravity(Gravity.CENTER_HORIZONTAL|arguments.getInt(ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY));
+
         if(mTutorialImage != NO_IMAGE) {
             if (!mHasAnimatedImage) {
                 Picasso.with(getActivity()).load(mTutorialImage).into(mTutorialImageImageView);
@@ -252,8 +278,8 @@ public class TutorialFragment extends Fragment implements CustomAction{
         }
 
 
-        mTutorialNameTextView.setText(mTutorialName);
-        mTutorialDescriptionTextView.setText(mTutorialDescription);
+        mTutorialNameTextView.setText(Html.fromHtml(mTutorialName));
+        mTutorialDescriptionTextView.setText(Html.fromHtml(mTutorialDescription));
 
         return rootView;
     }

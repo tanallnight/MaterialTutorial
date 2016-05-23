@@ -90,17 +90,21 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                     exception.printStackTrace();
                 }
             } else if(mViewPager.getCurrentItem() == 0) {
-                finish();
+                finishTutorial();
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1, true);
             }
         } else if (v.getId() == R.id.tutorial_button_image_right) {
             if(mViewPager.getCurrentItem() == getCount()-1) {
-                finish();
+                finishTutorial();
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
             }
         }
+    }
+
+    public void finishTutorial() {
+        finish();
     }
 
     @Override
