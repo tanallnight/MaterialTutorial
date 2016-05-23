@@ -30,10 +30,11 @@ public class MainActivity extends TutorialActivity {
             Color.parseColor("#3F51B5"),
             Color.parseColor("#F44336")};
 
+
     @Override
-    public void finishTutorial() {
-        Toast.makeText(this, "Tutorial finished", Toast.LENGTH_SHORT).show();
-        super.finishTutorial();
+    public void finishTutorial(FINISH finish) {
+        Toast.makeText(this, "Tutorial finished " + finish.toString(), Toast.LENGTH_SHORT).show();
+        super.finishTutorial(finish);
     }
 
     @Override

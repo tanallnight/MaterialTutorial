@@ -90,20 +90,25 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                     exception.printStackTrace();
                 }
             } else if(mViewPager.getCurrentItem() == 0) {
-                finishTutorial();
+                finishTutorial(FINISH.SKIP);
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1, true);
             }
         } else if (v.getId() == R.id.tutorial_button_image_right) {
             if(mViewPager.getCurrentItem() == getCount()-1) {
-                finishTutorial();
+                finishTutorial(FINISH.END);
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
             }
         }
     }
 
-    public void finishTutorial() {
+    @Override
+    public void onBackPressed() {
+        finishTutorial(FINISH.BACK);
+    }
+
+    public void finishTutorial(FINISH finish) {
         finish();
     }
 
@@ -446,4 +451,9 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         }
         return false;
     }
+
+    public enum FINISH {
+        BACK, SKIP, END
+    }
+
 }
