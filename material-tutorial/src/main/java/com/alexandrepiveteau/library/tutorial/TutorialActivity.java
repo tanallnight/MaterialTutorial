@@ -90,13 +90,13 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
                     exception.printStackTrace();
                 }
             } else if(mViewPager.getCurrentItem() == 0) {
-                finishTutorial(FINISH.SKIP);
+                finishTutorial(FINISH_TYPE.SKIP);
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()-1, true);
             }
         } else if (v.getId() == R.id.tutorial_button_image_right) {
             if(mViewPager.getCurrentItem() == getCount()-1) {
-                finishTutorial(FINISH.END);
+                finishTutorial(FINISH_TYPE.END);
             } else {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1, true);
             }
@@ -105,10 +105,10 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
 
     @Override
     public void onBackPressed() {
-        finishTutorial(FINISH.BACK);
+        finishTutorial(FINISH_TYPE.BACK);
     }
 
-    public void finishTutorial(FINISH finish) {
+    public void finishTutorial(FINISH_TYPE finish) {
         finish();
     }
 
@@ -452,7 +452,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         return false;
     }
 
-    public enum FINISH {
+    public enum FINISH_TYPE {
         BACK, SKIP, END
     }
 

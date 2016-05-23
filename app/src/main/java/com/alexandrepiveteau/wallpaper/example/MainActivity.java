@@ -32,7 +32,7 @@ public class MainActivity extends TutorialActivity {
 
 
     @Override
-    public void finishTutorial(FINISH finish) {
+    public void finishTutorial(FINISH_TYPE finish) {
         Toast.makeText(this, "Tutorial finished " + finish.toString(), Toast.LENGTH_SHORT).show();
         super.finishTutorial(finish);
     }
