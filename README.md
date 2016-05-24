@@ -15,13 +15,13 @@ Video example : [YouTube link](https://youtu.be/WEjwE59k1oY "MaterialTutorial sa
 This project is available on jCentral. To use the project on Android Studio, make sure you have the following in your project's build.gradle file :
 ```
 repositories {
-	    jcenter()
+	    maven { url "https://jitpack.io" }
 	}
 ```
 and compile the project in your module's build.gradle :
 ```
 dependencies {
-	        compile 'com.alexandrepiveteau:material-tutorial:1.1.0'
+	        compile 'com.github.rebus007:MaterialTutorial:1.1.1'
 	}
 ```
 
