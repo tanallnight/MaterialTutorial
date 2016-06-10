@@ -104,7 +104,7 @@ public class MainActivity extends TutorialActivity {
             default:
                 return new TutorialFragment.Builder()
                         .setTitle("Title")
-                        .setDescription("Desc")
+                        .setDescription("1) test<br>2) test<br>3) test<br>4) test")
                         .setImageResourceBackground(R.drawable.device)
                         .setImageResourceForeground(R.mipmap.ic_launcher)
                         .build();

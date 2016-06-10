@@ -47,8 +47,6 @@
             android:gravity="center"
             android:textSize="18sp"
             android:layout_margin="32dp"
-            android:layout_marginBottom="108dp"
-            android:paddingBottom="44dp"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             android:textColor="#ffffff"
