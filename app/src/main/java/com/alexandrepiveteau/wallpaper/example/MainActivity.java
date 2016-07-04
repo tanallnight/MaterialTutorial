@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -30,6 +31,22 @@ public class MainActivity extends TutorialActivity {
             Color.parseColor("#3F51B5"),
             Color.parseColor("#F44336")};
 
+
+    private static final int[] TOOLBAR_BACKGROUND_COLORS = {
+            Color.parseColor("#265963"),
+            Color.parseColor("#5b9899"),
+            Color.parseColor("#4FC3F7"),
+            Color.parseColor("#e9a83b"),
+            Color.parseColor("#F44336"),
+            Color.parseColor("#3F51B5"),
+            Color.parseColor("#F44336"),
+            Color.parseColor("#cbb6c5")};
+
+
+    @Override
+    public int getBottomBarColor(int position) {
+        return TOOLBAR_BACKGROUND_COLORS[position];
+    }
 
     @Override
     public void finishTutorial(FINISH_TYPE finish) {
@@ -71,7 +88,7 @@ public class MainActivity extends TutorialActivity {
 
     @Override
     public int getNavigationBarColor(int position) {
-        return BACKGROUND_COLORS[position];
+        return TOOLBAR_BACKGROUND_COLORS[position];
     }
 
     @Override
@@ -93,12 +110,13 @@ public class MainActivity extends TutorialActivity {
                         .setDescription("Desc")
                         .setTitleGravity(Gravity.LEFT)
                         .setDescriptionGravity(Gravity.RIGHT)
+                        .setDescriptionColor(Color.parseColor("#000000"))
                         .setImageResourceBackground(R.drawable.device)
                         .setImageResourceForeground(R.mipmap.ic_launcher)
                         .setCustomAction(
                                 new CustomAction.Builder(pendingIntent)
-                                        .setTitle("GitHu")
-                                        .setIcon(R.drawable.ic_open_in_browser)
+                                        .setTitle("GitHub")
+                                        //.setIcon(R.drawable.ic_open_in_browser)
                                         .build())
                         .build();
             default:
@@ -106,6 +124,7 @@ public class MainActivity extends TutorialActivity {
                         .setTitle("Title")
                         .setDescription("1) test<br>2) test<br>3) test<br>4) test")
                         .setImageResourceBackground(R.drawable.device)
+                        .setTitleColor(Color.parseColor("#000000"))
                         .setImageResourceForeground(R.mipmap.ic_launcher)
                         .build();
         }

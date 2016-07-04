@@ -38,34 +38,35 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_vertical"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-
-        <TextView
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_margin="32dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:textColor="#ffffff"
-            android:id="@+id/tutorial_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"/>
 
         <TextView
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:gravity="center"
             android:textSize="24sp"
-            android:layout_above="@id/tutorial_description"
             android:textColor="#ffffff"
             android:id="@+id/tutorial_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+        <TextView
+            android:gravity="center"
+            android:textSize="18sp"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:textColor="#ffffff"
+            android:id="@+id/tutorial_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
 
 </LinearLayout>

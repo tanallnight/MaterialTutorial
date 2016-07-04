@@ -29,12 +29,14 @@ import java.util.List;
 
 public abstract class TutorialActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, ViewPager.OnPageChangeListener {
 
-    @Deprecated public String getDoneText() {return null;};
-    public abstract String getIgnoreText();
-    @Deprecated public String getNextText() {return null;};
-    @Deprecated public String getPreviousText() {return null;};
+    private RelativeLayout toolbarTutorial;
 
-    public PageIndicator.Engine getPageIndicatorEngine() {return new DefaultPageIndicatorEngine();};
+    @Deprecated public String getDoneText() {return null;}
+    public abstract String getIgnoreText();
+    @Deprecated public String getNextText() {return null;}
+    @Deprecated public String getPreviousText() {return null;}
+
+    public PageIndicator.Engine getPageIndicatorEngine() {return new DefaultPageIndicatorEngine();}
 
     public abstract int getCount();
     public abstract int getBackgroundColor(int position);
@@ -43,6 +45,9 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
     public abstract Fragment getTutorialFragmentFor(int position);
     public abstract boolean isNavigationBarColored();
     public abstract boolean isStatusBarColored();
+    public int getBottomBarColor(int position) {
+        return 0;
+    }
 
     public abstract ViewPager.PageTransformer getPageTransformer();
 
@@ -56,6 +61,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
 
     //Objects needed
     private TutorialViewPagerAdapter mAdapter;
+    private ColorMixer mColorMixerBottomToolbarBackground;
     private ColorMixer mColorMixerBackground;
     private ColorMixer mColorMixerNavigationBar;
     private ColorMixer mColorMixerStatusBas;
@@ -117,6 +123,8 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
+        toolbarTutorial = (RelativeLayout) findViewById(R.id.toolbar_tutorial);
+
         mButtonLeft = (Button) findViewById(R.id.tutorial_button_left);
         mImageButtonLeft = (ImageButton) findViewById(R.id.tutorial_button_image_left);
         mImageButtonRight = (ImageButton) findViewById(R.id.tutorial_button_image_right);
@@ -174,6 +182,17 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
             mColorMixerStatusBas.setSecondColor(getStatusBarColor(position + 1));
         } catch (Exception e) {
             mColorMixerStatusBas.setFirstColor(getStatusBarColor(position));
+        }
+
+        if (getBottomBarColor(position) != 0) {
+            mColorMixerBottomToolbarBackground = new ColorMixer();
+            mColorMixerBottomToolbarBackground.setFirstColor(getBottomBarColor(position));
+            try {
+                mColorMixerBottomToolbarBackground.setSecondColor(getBottomBarColor(position + 1));
+            } catch (Exception e) {
+                mColorMixerBottomToolbarBackground.setFirstColor(getBottomBarColor(position));
+            }
+            setToolbarTutorialBackgroundColor(mColorMixerBottomToolbarBackground.getMixedColor(positionOffset));
         }
 
         setBackgroundColor(mColorMixerBackground.getMixedColor(positionOffset));
@@ -426,6 +445,10 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
 
     private void setBackgroundColor(int backgroundColor) {
         mRelativeLayout.setBackgroundColor(backgroundColor);
+    }
+
+    private void setToolbarTutorialBackgroundColor(int backgroundColor) {
+        toolbarTutorial.setBackgroundColor(backgroundColor);
     }
 
     private void setSystemBarsColors(int colorNavigationBar, int colorStatusBar) {

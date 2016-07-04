@@ -39,6 +39,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
         private int mTitleGravity;
         private int mDescriptionGravity;
 
+        private int mTitleColor;
+        private int mDescriptionColor;
+
         private CustomAction mCustomAction;
 
         public Builder() {
@@ -52,6 +55,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
 
             mTitleGravity = Gravity.CENTER_VERTICAL;
             mDescriptionGravity = Gravity.CENTER_VERTICAL;
+
+            mTitleColor = 0;
+            mDescriptionColor = 0;
 
             mCustomAction = new CustomAction.Builder(null).build();
         }
@@ -117,8 +123,18 @@ public class TutorialFragment extends Fragment implements CustomAction{
             return this;
         }
 
+        public Builder setTitleColor(int titleColor) {
+            mTitleColor = titleColor;
+            return this;
+        }
+
+        public Builder setDescriptionColor(int descriptionColor) {
+            mDescriptionColor = descriptionColor;
+            return this;
+        }
+
         public TutorialFragment build() {
-            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionPendingIntent(), mCustomAction.getCustomActionTitle(), mTitleGravity, mDescriptionGravity);
+            return TutorialFragment.getInstance(mTitle, mDescription, mImageResource, mImageResourceBackground, mImageResourceForeground, mIsImageResourceAnimated, mIsImageResourceBackgroundAnimated, mIsImageResourceForegroundAnimated, mCustomAction.getCustomActionIcon(), mCustomAction.getCustomActionPendingIntent(), mCustomAction.getCustomActionTitle(), mTitleGravity, mDescriptionGravity, mTitleColor, mDescriptionColor);
         }
     }
 
@@ -135,12 +151,14 @@ public class TutorialFragment extends Fragment implements CustomAction{
     private static final String ARGUMENTS_TUTORIAL_DESCRIPTION = "ARGUMENTS_TUTORIAL_NAME_DESCRIPTION";
     private static final String ARGUMENTS_TUTORIAL_NAME_GRAVITY = "ARGUMENTS_TUTORIAL_NAME_GRAVITY";
     private static final String ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY = "ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY";
+    private static final String ARGUMENTS_TUTORIAL_NAME_COLOR = "ARGUMENTS_TUTORIAL_NAME_COLOR";
+    private static final String ARGUMENTS_TUTORIAL_DESCRIPTION_COLOR = "ARGUMENTS_TUTORIAL_DESCRIPTION_COLOR";
 
     private static final String ARGUMENTS_CUSTOM_ACTION_ICON = "ARGUMENTS_CUSTOM_ACTION_ICON";
     private static final String ARGUMENTS_CUSTOM_ACTION_TITLE = "ARGUMENTS_CUSTOM_ACTIION_TITLE";
     private static final String ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT = "ARGUMENTS_CUSTOM_ACTION_PENDING_INTENT";
 
-    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, PendingIntent pendingIntent, String customActionTitle, int titleGravity, int descriptionGravity) {
+    private static TutorialFragment getInstance(String name, String description, int imageResource, int imageResourceBackground, int imageResourceForeground, boolean hasAnimatedImageResource, boolean hasAnimatedImageResourceBackground, boolean hasAnimatedImageResourceForeground, int customActionIcon, PendingIntent pendingIntent, String customActionTitle, int titleGravity, int descriptionGravity, int titleColor, int descriptionColor) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE, imageResource);
         bundle.putInt(ARGUMENTS_TUTORIAL_IMAGE_BACKGROUND, imageResourceBackground);
@@ -156,6 +174,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
 
         bundle.putInt(ARGUMENTS_TUTORIAL_NAME_GRAVITY, titleGravity);
         bundle.putInt(ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY, descriptionGravity);
+
+        bundle.putInt(ARGUMENTS_TUTORIAL_NAME_COLOR, titleColor);
+        bundle.putInt(ARGUMENTS_TUTORIAL_DESCRIPTION_COLOR, descriptionColor);
 
         TutorialFragment tutorialFragment = new TutorialFragment();
         tutorialFragment.setArguments(bundle);
@@ -192,6 +213,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
     private ImageView mTutorialImageImageViewBackground;
     private ImageView mTutorialImageImageViewForeground;
 
+    private int mTitleColor;
+    private int mDescriptionColor;
+
     /*
      * Implemented methods for the CustomAction
      */
@@ -226,6 +250,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
 
         Bundle arguments = getArguments();
 
+        mTitleColor = arguments.getInt(ARGUMENTS_TUTORIAL_NAME_COLOR);
+        mDescriptionColor = arguments.getInt(ARGUMENTS_TUTORIAL_DESCRIPTION_COLOR);
+
         mTutorialImage = arguments.getInt(ARGUMENTS_TUTORIAL_IMAGE);
         mTutorialImageBackground = arguments.getInt(ARGUMENTS_TUTORIAL_IMAGE_BACKGROUND);
         mTutorialImageForeground = arguments.getInt(ARGUMENTS_TUTORIAL_IMAGE_FOREGROUND);
@@ -245,6 +272,9 @@ public class TutorialFragment extends Fragment implements CustomAction{
 
         TextView mTutorialNameTextView = (TextView) rootView.findViewById(R.id.tutorial_name);
         TextView mTutorialDescriptionTextView = (TextView) rootView.findViewById(R.id.tutorial_description);
+
+        if (mTitleColor != 0) mTutorialNameTextView.setTextColor(mTitleColor);
+        if (mDescriptionColor != 0) mTutorialDescriptionTextView.setTextColor(mDescriptionColor);
 
         mTutorialNameTextView.setGravity(Gravity.CENTER_HORIZONTAL|arguments.getInt(ARGUMENTS_TUTORIAL_NAME_GRAVITY));
         mTutorialDescriptionTextView.setGravity(Gravity.CENTER_HORIZONTAL|arguments.getInt(ARGUMENTS_TUTORIAL_DESCRIPTION_GRAVITY));
@@ -277,9 +307,19 @@ public class TutorialFragment extends Fragment implements CustomAction{
             }
         }
 
+        if (mTutorialName != null) {
+            mTutorialNameTextView.setVisibility(View.VISIBLE);
+            mTutorialNameTextView.setText(Html.fromHtml(mTutorialName));
+        } else {
+            mTutorialNameTextView.setVisibility(View.GONE);
+        }
 
-        mTutorialNameTextView.setText(Html.fromHtml(mTutorialName));
-        mTutorialDescriptionTextView.setText(Html.fromHtml(mTutorialDescription));
+        if (mTutorialDescription != null) {
+            mTutorialDescriptionTextView.setVisibility(View.VISIBLE);
+            mTutorialDescriptionTextView.setText(Html.fromHtml(mTutorialDescription));
+        } else {
+            mTutorialDescriptionTextView.setVisibility(View.GONE);
+        }
 
         return rootView;
     }

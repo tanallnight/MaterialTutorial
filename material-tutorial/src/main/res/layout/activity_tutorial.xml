@@ -8,7 +8,6 @@
     tools:context=".TutorialActivity">
 
     <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:id="@+id/toolbar_tutorial"
@@ -19,7 +18,6 @@
             android:id="@+id/tutorial_button_left"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
@@ -30,8 +28,7 @@
             android:id="@+id/tutorial_button_image_left"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="48dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -39,18 +36,15 @@
 
         <com.alexandrepiveteau.library.tutorial.widgets.PageIndicator
             android:id="@+id/tutorial_page_indicator"
-            android:layout_alignParentBottom="true"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="32dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/tutorial_button_image_right"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="16dp"
+            android:layout_centerVertical="true"
             android:layout_marginRight="48dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
