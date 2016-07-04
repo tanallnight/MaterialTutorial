@@ -9,7 +9,7 @@
     <string name="library_materialtutoriallibrary_libraryName">MaterialTutorial</string>
     <string name="library_materialtutoriallibrary_libraryDescription">An Android library that provides a simple Material-Designed tutorial.</string>
     <string name="library_materialtutoriallibrary_libraryWebsite">https://github.com/cadialex</string>
-    <string name="library_materialtutoriallibrary_libraryVersion">1.1.0</string>
+    <string name="library_materialtutoriallibrary_libraryVersion">1.1.4</string>
     <!-- OpenSource section -->
     <string name="library_materialtutoriallibrary_isOpenSource">true</string>
     <string name="library_materialtutoriallibrary_repositoryLink">https://github.com/cadialex</string>
