@@ -1,7 +1,6 @@
 package com.alexandrepiveteau.library.tutorial;
 
 import android.app.PendingIntent;
-import android.net.Uri;
 import android.support.annotation.DrawableRes;
 
 /**
@@ -9,17 +8,27 @@ import android.support.annotation.DrawableRes;
  */
 public interface CustomAction {
 
+    PendingIntent getCustomActionPendingIntent();
+
+    int getCustomActionIcon();
+
+    String getCustomActionTitle();
+
+    boolean isEnabled();
+
+    boolean hasCustomIcon();
+
     /*
      * Since Android doesn't support static methods in interfaces for the moment, we use an inner class.
      */
     class Utils {
         static boolean areCustomActionsDrawingEqual(CustomAction customAction1, CustomAction customAction2) {
             if (customAction1.hasCustomIcon() == customAction2.hasCustomIcon()) {
-                if(customAction1.getCustomActionIcon() == customAction2.getCustomActionIcon()) {
+                if (customAction1.getCustomActionIcon() == customAction2.getCustomActionIcon()) {
                     return true;
                 }
             } else {
-                if(customAction1.getCustomActionTitle().equals(customAction2.getCustomActionTitle())) {
+                if (customAction1.getCustomActionTitle().equals(customAction2.getCustomActionTitle())) {
                     return true;
                 }
             }
@@ -81,10 +90,4 @@ public interface CustomAction {
             };
         }
     }
-
-    PendingIntent getCustomActionPendingIntent();
-    int getCustomActionIcon();
-    String getCustomActionTitle();
-    boolean isEnabled();
-    boolean hasCustomIcon();
 }

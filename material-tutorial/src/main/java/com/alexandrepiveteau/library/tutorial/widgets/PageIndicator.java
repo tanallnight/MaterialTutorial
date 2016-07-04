@@ -1,33 +1,20 @@
 package com.alexandrepiveteau.library.tutorial.widgets;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.alexandrepiveteau.library.tutorial.R;
-import com.alexandrepiveteau.library.tutorial.utils.ConversionUtils;
-
 /**
  * Created by Alexandre on 15.07.2015.
  */
-public class PageIndicator extends View implements ViewPager.OnPageChangeListener{
-
-    public static abstract class Engine {
-        public abstract int getMeasuredHeight(int widthMeasuredSpec, int heightMeasuredSpec);
-        public abstract int getMeasuredWidth(int widthMeasuredSpec, int heightMeasuredSpec);
-        public abstract void onInitEngine(PageIndicator indicator, Context context);
-        public abstract void onDrawIndicator(Canvas canvas);
-    }
+public class PageIndicator extends View implements ViewPager.OnPageChangeListener {
 
     private int mActualPosition;
     private float mPositionOffset;
     private int mTotalPages;
     private ViewPager mViewPager;
-
     private Engine mEngine;
 
     public PageIndicator(Context context) {
@@ -102,6 +89,7 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
 
     /**
      * You must call this AFTER setting the Adapter for the ViewPager, or it won't display the right amount of points.
+     *
      * @param viewPager
      */
     public void setViewPager(ViewPager viewPager) {
@@ -109,5 +97,15 @@ public class PageIndicator extends View implements ViewPager.OnPageChangeListene
         viewPager.addOnPageChangeListener(this);
         mTotalPages = viewPager.getAdapter().getCount();
         invalidate();
+    }
+
+    public static abstract class Engine {
+        public abstract int getMeasuredHeight(int widthMeasuredSpec, int heightMeasuredSpec);
+
+        public abstract int getMeasuredWidth(int widthMeasuredSpec, int heightMeasuredSpec);
+
+        public abstract void onInitEngine(PageIndicator indicator, Context context);
+
+        public abstract void onDrawIndicator(Canvas canvas);
     }
 }

@@ -2,7 +2,6 @@ package com.alexandrepiveteau.library.tutorial.widgets;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import com.alexandrepiveteau.library.tutorial.R;

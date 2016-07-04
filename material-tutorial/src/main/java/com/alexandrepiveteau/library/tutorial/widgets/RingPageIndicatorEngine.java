@@ -98,5 +98,6 @@ public class RingPageIndicatorEngine extends PageIndicator.Engine {
 
     @IntDef({ANIMATION_SCALE, ANIMATION_FADE})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface AnimationMode {}
+    public @interface AnimationMode {
+    }
 }

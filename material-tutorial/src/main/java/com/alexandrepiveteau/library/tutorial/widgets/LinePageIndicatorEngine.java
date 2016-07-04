@@ -99,5 +99,6 @@ public class LinePageIndicatorEngine extends PageIndicator.Engine {
 
     @IntDef({ANIMATION_PROGRESS, ANIMATION_BAR})
     @Retention(RetentionPolicy.SOURCE)
-    public @interface AnimationMode {}
+    public @interface AnimationMode {
+    }
 }

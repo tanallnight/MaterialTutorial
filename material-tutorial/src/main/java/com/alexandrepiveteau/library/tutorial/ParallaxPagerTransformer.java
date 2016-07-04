@@ -62,7 +62,7 @@ public class ParallaxPagerTransformer implements ViewPager.PageTransformer {
 
     /**
      * Information to make the parallax effect in a concrete view.
-     *
+     * <p/>
      * parallaxEffect positive values reduces the speed of the view in the translation
      * ParallaxEffect negative values increase the speed of the view in the translation
      * Try values to see the different effects. I recommend 2, 0.75 and 0.5

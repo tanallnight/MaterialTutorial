@@ -10,6 +10,7 @@ public class ColorMixer {
 
     /**
      * A convenience method to get a mixed color.
+     *
      * @param transitionProgression The progression of the mix.
      * @return The mixed color.
      */

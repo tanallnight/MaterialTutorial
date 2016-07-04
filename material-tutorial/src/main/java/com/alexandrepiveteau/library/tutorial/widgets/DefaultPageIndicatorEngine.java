@@ -3,7 +3,6 @@ package com.alexandrepiveteau.library.tutorial.widgets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.AttributeSet;
 
 import com.alexandrepiveteau.library.tutorial.R;
 import com.alexandrepiveteau.library.tutorial.utils.ConversionUtils;
@@ -54,32 +53,32 @@ public class DefaultPageIndicatorEngine extends PageIndicator.Engine {
         int height = mPageIndicator.getHeight();
 
         //We draw the unselected page indicators
-        for(int i = 0; i < mPageIndicator.getTotalPages(); i++) {
+        for (int i = 0; i < mPageIndicator.getTotalPages(); i++) {
             int radius;
-            if(i == mPageIndicator.getActualPosition() + 1) {
-                radius = mConversionUtils.getPixelsFromDp(4*(1-mPageIndicator.getPositionOffset()));
+            if (i == mPageIndicator.getActualPosition() + 1) {
+                radius = mConversionUtils.getPixelsFromDp(4 * (1 - mPageIndicator.getPositionOffset()));
             } else if (i == mPageIndicator.getActualPosition()) {
-                radius = mConversionUtils.getPixelsFromDp(4*(mPageIndicator.getPositionOffset()));
+                radius = mConversionUtils.getPixelsFromDp(4 * (mPageIndicator.getPositionOffset()));
             } else {
                 radius = mConversionUtils.getPixelsFromDp(4);
             }
-            int x = mConversionUtils.getPixelsFromDp(4) + mConversionUtils.getPixelsFromDp(16*i);
-            canvas.drawCircle(x, height/2, radius, mUnselectedPaint);
+            int x = mConversionUtils.getPixelsFromDp(4) + mConversionUtils.getPixelsFromDp(16 * i);
+            canvas.drawCircle(x, height / 2, radius, mUnselectedPaint);
         }
 
         int firstX;
         int secondX;
 
-        firstX = mConversionUtils.getPixelsFromDp(4 + mPageIndicator.getActualPosition()*16);
+        firstX = mConversionUtils.getPixelsFromDp(4 + mPageIndicator.getActualPosition() * 16);
 
-        if(mPageIndicator.getPositionOffset() > .5f) {
-            firstX += mConversionUtils.getPixelsFromDp(16*(mPageIndicator.getPositionOffset() - .5f)*2);
+        if (mPageIndicator.getPositionOffset() > .5f) {
+            firstX += mConversionUtils.getPixelsFromDp(16 * (mPageIndicator.getPositionOffset() - .5f) * 2);
         }
 
-        secondX = mConversionUtils.getPixelsFromDp(4 + mPageIndicator.getActualPosition()*16);
+        secondX = mConversionUtils.getPixelsFromDp(4 + mPageIndicator.getActualPosition() * 16);
 
-        if(mPageIndicator.getPositionOffset() < .5f) {
-            secondX += mConversionUtils.getPixelsFromDp(16*mPageIndicator.getPositionOffset()*2);
+        if (mPageIndicator.getPositionOffset() < .5f) {
+            secondX += mConversionUtils.getPixelsFromDp(16 * mPageIndicator.getPositionOffset() * 2);
         } else {
             secondX += mConversionUtils.getPixelsFromDp(16);
         }
