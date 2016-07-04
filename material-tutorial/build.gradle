@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/cadialex/MaterialTutorial'
     gitUrl = 'https://github.com/cadialex/MaterialTutorial.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.1.4'
 
     developerId = 'cadialex'
     developerName = 'Alexandre Piveteau'
@@ -32,7 +32,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
+        versionName "1.1.4"
     }
     buildTypes {
         release {
