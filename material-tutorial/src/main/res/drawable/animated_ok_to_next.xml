@@ -2,49 +2,49 @@
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="true">
     <item
-        android:drawable="@drawable/animated_next_p"
+        android:drawable="@drawable/ic_animated_next_p"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_o"
+        android:drawable="@drawable/ic_animated_next_o"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_n"
+        android:drawable="@drawable/ic_animated_next_n"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_m"
+        android:drawable="@drawable/ic_animated_next_m"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_l"
+        android:drawable="@drawable/ic_animated_next_l"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_k"
+        android:drawable="@drawable/ic_animated_next_k"
         android:duration="15" />
-    <!--<item android:drawable="@drawable/animated_next_j" android:duration="15"/>-->
+    <!--<item android:drawable="@drawable/ic_animated_next_j" android:duration="15"/>-->
     <item
-        android:drawable="@drawable/animated_next_i"
-        android:duration="15" />
-    <item
-        android:drawable="@drawable/animated_next_h"
+        android:drawable="@drawable/ic_animated_next_i"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_g"
+        android:drawable="@drawable/ic_animated_next_h"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_f"
+        android:drawable="@drawable/ic_animated_next_g"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_e"
+        android:drawable="@drawable/ic_animated_next_f"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_d"
+        android:drawable="@drawable/ic_animated_next_e"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_c"
+        android:drawable="@drawable/ic_animated_next_d"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_b"
+        android:drawable="@drawable/ic_animated_next_c"
         android:duration="15" />
     <item
-        android:drawable="@drawable/animated_next_a"
+        android:drawable="@drawable/ic_animated_next_b"
+        android:duration="15" />
+    <item
+        android:drawable="@drawable/ic_animated_next_a"
         android:duration="15" />
 </animation-list>

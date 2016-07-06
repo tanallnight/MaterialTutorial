@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.alexandrepiveteau.library.tutorial.widgets.DefaultPageIndicatorEngine;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public abstract class TutorialActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener, ViewPager.OnPageChangeListener {
 
-    private RelativeLayout toolbarTutorial;
+    private LinearLayout toolbarTutorial;
     //Views used
     private Button mButtonLeft;
     private ImageButton mImageButtonLeft;
@@ -136,7 +137,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tutorial);
 
-        toolbarTutorial = (RelativeLayout) findViewById(R.id.toolbar_tutorial);
+        toolbarTutorial = (LinearLayout) findViewById(R.id.toolbar_tutorial);
 
         mButtonLeft = (Button) findViewById(R.id.tutorial_button_left);
         mImageButtonLeft = (ImageButton) findViewById(R.id.tutorial_button_image_left);
@@ -416,7 +417,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         if (hadPreviousPageCustomIcon) {
             previousPageIcon = ((CustomAction) mFragmentList.get(mPreviousPage)).getCustomActionIcon();
         } else {
-            previousPageIcon = R.drawable.static_previous;
+            previousPageIcon = R.drawable.ic_static_previous;
         }
 
         if (mFragmentList.get(position) instanceof CustomAction) {
@@ -426,7 +427,7 @@ public abstract class TutorialActivity extends AppCompatActivity implements View
         if (hasCustomIcon) {
             currentPageIcon = ((CustomAction) mFragmentList.get(position)).getCustomActionIcon();
         } else {
-            currentPageIcon = R.drawable.static_previous;
+            currentPageIcon = R.drawable.ic_static_previous;
         }
 
         if (currentPageIcon != previousPageIcon) {

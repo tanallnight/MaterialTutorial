@@ -6,50 +6,67 @@
     tools:context=".TutorialActivity"
     tools:ignore="RtlHardcoded,ContentDescription,HardcodedText">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/toolbar_tutorial"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:layout_alignParentBottom="true">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false">
 
-        <Button
-            android:id="@+id/tutorial_button_left"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:text="IGNORE"
-            android:textColor="#ffffff"
-            android:visibility="gone" />
+        <RelativeLayout
+            android:layout_width="96dp"
+            android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/tutorial_button_image_left"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/static_previous" />
+            <Button
+                android:id="@+id/tutorial_button_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:text="IGNORE"
+                android:textColor="#ffffff"
+                android:visibility="gone" />
 
-        <com.alexandrepiveteau.library.tutorial.widgets.PageIndicator
-            android:id="@+id/tutorial_page_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            <ImageButton
+                android:id="@+id/tutorial_button_image_left"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_static_previous" />
 
-        <ImageButton
-            android:id="@+id/tutorial_button_image_right"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/animated_next_to_ok" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <com.alexandrepiveteau.library.tutorial.widgets.PageIndicator
+                android:id="@+id/tutorial_page_indicator"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="96dp"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/tutorial_button_image_right"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:scaleType="centerInside"
+                android:layout_centerInParent="true"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/animated_next_to_ok" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

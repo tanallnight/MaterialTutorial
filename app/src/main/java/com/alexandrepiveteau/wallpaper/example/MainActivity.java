@@ -116,7 +116,7 @@ public class MainActivity extends TutorialActivity {
                         .setCustomAction(
                                 new CustomAction.Builder(pendingIntent)
                                         .setTitle("GitHub")
-                                        //.setIcon(R.drawable.ic_open_in_browser)
+                                        .setIcon(R.drawable.ic_open_in_browser)
                                         .build())
                         .build();
             default:
