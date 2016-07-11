@@ -21,7 +21,7 @@ repositories {
 and compile the project in your module's build.gradle :
 ```
 dependencies {
-	        compile 'com.github.rebus007:MaterialTutorial:1.1.1'
+	        compile 'com.github.rebus007:MaterialTutorial:1.1.6'
 	}
 ```
 
